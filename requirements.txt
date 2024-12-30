@@ -7,4 +7,3 @@ utils
 langchain_groq
 langchain_core
 python-dotenv
-en-core-web-sm 

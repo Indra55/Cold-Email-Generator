@@ -5,7 +5,6 @@ import io
 import re
 import spacy
 from chain import Chain
-from portfolio import Portfolio
 from utils import clean_text
 import time
 
@@ -56,7 +55,7 @@ def extract_resume_info(pdf_file):
     return info
 
 # Main Streamlit app
-def create_streamlit_app(llm, portfolio, clean_text):
+def create_streamlit_app(llm, clean_text):
     # Page title and layout
     st.set_page_config(layout="wide", page_title="Cold Email Generator", page_icon="📧")
     st.title("📧 Cold Email Generator")
@@ -114,10 +113,8 @@ def create_streamlit_app(llm, portfolio, clean_text):
                 try:
                     loader = WebBaseLoader([job_url])
                     job_data = clean_text(loader.load().pop().page_content)
-                    portfolio.load_portfolio()
                     jobs = llm.extract_jobs(job_data)
                     for job in jobs:
-                        links = portfolio.query_links(job.get('skills', []))
                         user_info = {
                             "name": name,
                             "email": email,
@@ -125,7 +122,7 @@ def create_streamlit_app(llm, portfolio, clean_text):
                             "designation": designation,
                             "experience": experience.split(", ")
                         }
-                        email_content = llm.write_mail(job, links, user_info)
+                        email_content = llm.write_mail(job, user_info)
                         st.subheader("Generated Email")
                         st.code(email_content, language="markdown")
                 except Exception as e:
@@ -133,6 +130,6 @@ def create_streamlit_app(llm, portfolio, clean_text):
 
 # Entry point
 if __name__ == "__main__":
+    from chain import Chain
     chain = Chain()
-    portfolio = Portfolio()
-    create_streamlit_app(chain, portfolio, clean_text)
+    create_streamlit_app(chain, clean_text)

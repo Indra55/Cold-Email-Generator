@@ -6,6 +6,7 @@ from langchain_core.exceptions import OutputParserException
 from dotenv import load_dotenv
 
 load_dotenv()
+
 class Chain:
     def __init__(self):
         self.llm = ChatGroq(
@@ -35,30 +36,29 @@ class Chain:
             raise OutputParserException("Context too big. Unable to parse jobs.")
         return res if isinstance(res, list) else [res]
 
-    def write_mail(self, job, links, user_info):
+    def write_mail(self, job, user_info):
         prompt_email = PromptTemplate.from_template(
             """
             ### JOB DESCRIPTION:
             {job_description}
 
-          ### USER INFO:
-          Name: {name}
-          Email: {email}
-          Company: {company}
-          Designation: {designation}
-          Experience: {experience}
-          Skills: {skills}
+            ### USER INFO:
+            Name: {name}
+            Email: {email}
+            Company: {company}
+            Designation: {designation}
+            Experience: {experience}
+            Skills: {skills}
 
- 
             ### INSTRUCTION:
-        Write a cold email for the job that:
-        1. Explicitly matches the user's qualifications to job requirements
-        2. Emphasizes relevant technical skills and projects
-        3. Highlights education status and graduation timeline if relevant
-        4. Maintains professional but enthusiastic tone
-        5. Uses specific examples from projects to demonstrate capabilities
-        6. Only includes information provided above
-        7. If skills match with job description then show positive attitude 
+            Write a cold email for the job that:
+            1. Explicitly matches the user's qualifications to job requirements
+            2. Emphasizes relevant technical skills and projects
+            3. Highlights education status and graduation timeline if relevant
+            4. Maintains professional but enthusiastic tone
+            5. Uses specific examples from projects to demonstrate capabilities
+            6. Only includes information provided above
+            7. Shows a positive attitude if the candidate’s skills match the job description.
 
             Remember: The email must be 100% truthful and based only on the provided information.
             ### EMAIL (NO PREAMBLE):
@@ -66,8 +66,7 @@ class Chain:
         )
         chain_email = prompt_email | self.llm
         res = chain_email.invoke({
-            "job_description": str(job), 
-            "link_list": links,
+            "job_description": str(job),
             **user_info,
             "skills": user_info.get("skills", [])
         })

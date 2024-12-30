@@ -6,7 +6,14 @@ import re
 import spacy
 from chain import Chain
 from utils import clean_text
+from spacy.cli import download
 
+# Download the model if it's not already installed
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    download("en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm")
 
 # Extract information from uploaded PDF resumes
 def extract_resume_info(pdf_file):

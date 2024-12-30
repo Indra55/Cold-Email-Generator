@@ -1,0 +1,6 @@
+streamlit
+langchain_community
+PyPDF2
+spacy
+chain
+utils

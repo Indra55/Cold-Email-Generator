@@ -6,7 +6,7 @@ import re
 import spacy
 from chain import Chain
 from utils import clean_text
-import time
+
 
 # Extract information from uploaded PDF resumes
 def extract_resume_info(pdf_file):
@@ -58,7 +58,7 @@ def extract_resume_info(pdf_file):
 def create_streamlit_app(llm, clean_text):
     # Page title and layout
     st.set_page_config(layout="wide", page_title="Cold Email Generator", page_icon="📧")
-    st.title("📧 Cold Email Generator")
+    st.title("📧 Cold Connect")
     st.markdown("""
         <style>
         body {

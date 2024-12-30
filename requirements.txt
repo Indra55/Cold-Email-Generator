@@ -1,10 +1,10 @@
 streamlit
 langchain_community
 PyPDF2
-spacy
 chain
 utils
 langchain_groq
 langchain_core
 python-dotenv
-en-core-web-sm
+spacy>=3.0.0,<4.0.0
+https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.0.0/en_core_web_sm-3.0.0.tar.gz#egg=en_core_web_sm

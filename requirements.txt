@@ -4,3 +4,6 @@ PyPDF2
 spacy
 chain
 utils
+langchain_groq
+langchain_core
+python-dotenv

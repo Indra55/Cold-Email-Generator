@@ -8,10 +8,10 @@ from chain import Chain
 from utils import clean_text
 from spacy.cli import download
 
-# Download the model if it's not already installed
 try:
     nlp = spacy.load("en_core_web_sm")
 except OSError:
+    print("Downloading 'en_core_web_sm' model...")
     download("en_core_web_sm")
     nlp = spacy.load("en_core_web_sm")
 

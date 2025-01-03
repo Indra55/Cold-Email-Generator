@@ -4,6 +4,7 @@ PyPDF2
 langchain_groq
 langchain_core
 python-dotenv
-thinc --only-binary=:all:spacy>=3.0.0,<3.6.0
+thinc --only-binary=:all:
+spacy>=3.0.0,<3.6.0
 en-core-web-sm
 

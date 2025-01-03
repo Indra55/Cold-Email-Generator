@@ -3,7 +3,6 @@ langchain_community
 PyPDF2
 chain
 utils
-thinc
 langchain_groq
 langchain_core
 python-dotenv
